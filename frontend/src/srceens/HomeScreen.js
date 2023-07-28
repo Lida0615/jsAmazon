@@ -1,17 +1,17 @@
-import data from "../data.js";
+import axios from 'axios'
 
 const HomeScreen = {
   render: async () => {
-
-    const response = await fetch('http://localhost:5000/api/products',{
-      headers:{
-        "Content-Type": "application/json"
+    const response = await axios("http://localhost:5000/api/products", {
+      url: 'http://localhost:5000/api/products',
+      headers: {
+        "Content-Type": "application/json",
       },
-    })
-    if(!response || !response.ok) {
-      return `<div>Error in getting data</div>`
+    });
+    if (!response || response.statusText !== 'OK') {
+      return `<div>Error in getting data</div>`;
     }
-const products  = await response.json()
+    const products = await response.data;
 
     return `
     <ul class="products">
@@ -41,8 +41,3 @@ const products  = await response.json()
 };
 
 export default HomeScreen;
-
-
-
-
-
